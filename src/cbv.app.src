@@ -1,0 +1,17 @@
+{application, cbv,
+ [{description, "An OTP application"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {cbv_app, []}},
+  {applications,
+   [ kernel
+   , stdlib
+   , inets
+   , ssl
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {licenses, ["Apache 2.0"]},
+  {links, []}
+ ]}.
