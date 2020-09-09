@@ -5,7 +5,7 @@
 -export([all/0, init_per_testcase/2, end_per_testcase/2]).
 
 -export([
-  some_test/1
+  simple_eval_test/1
 ]).
 
 all() -> [some_test].
@@ -16,5 +16,5 @@ init_per_testcase(_, Config) ->
 end_per_testcase(_, _Config) ->
   ok.
 
-some_test(Config) ->
-  Config.
+simple_eval_test(Config) ->
+  ?assertEqual(42, cbv_math:eval(42)).
