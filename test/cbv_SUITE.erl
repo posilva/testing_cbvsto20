@@ -7,27 +7,26 @@
 
 
 all() -> [
-  server_created_test,
-  request_ok_test,
-  request_err_test,
-  stats_test
+  inet_request_test,
+  inet_stats_test,
+  zen_test
 ].
 
 init_per_testcase(_, Config) ->
-  ServerPid = cbv_inet_server:start_link(),
-  [{server_pid, ServerPid}| Config].
+  _ = application:ensure_all_started(cbv),
+  Config.
 
-end_per_testcase(_, Config) ->
-  {ok, Pid} = ?config(server_pid, Config),
-  erlang:exit(Pid, normal),
+end_per_testcase(_, _Config) ->
+  ok = application:stop(cbv),
   ok.
 
-inet_request_test(Config) ->
-  cbv_inet_server:request(Url).
+inet_request_test(_Config) ->
+  ?assertMatch({ok, _}, cbv:inet_request("https://httpstat.us/200")).
 
 inet_stats_test(Config) ->
-  cbv_inet_server:stats().
+  ?assertMatch({ok, #{fail:=_,success:=_}}, cbv:inet_stats()),
+  Config.
 
-zen() ->
-  Url = "https://api.github.com/zen",
-  inet_request(Url).
+zen_test(Config) ->
+  ?assertMatch({ok, _}, cbv:zen()),
+  Config.
