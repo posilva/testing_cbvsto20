@@ -6,7 +6,7 @@
 
 reverse([]) -> [];
 reverse([H|T]) ->
-  [reverse(T)|H].
+  reverse(T) ++ [H].
 
 reverse_empty_test() ->
   [] = reverse([]).
