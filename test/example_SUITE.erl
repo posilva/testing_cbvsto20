@@ -11,5 +11,5 @@ test1(Config) ->
   1 = 1.
 
 test2(_Config) ->
-  A = 0,
+  A = 1,
   1/A.
